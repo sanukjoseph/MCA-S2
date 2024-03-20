@@ -126,6 +126,11 @@
     echo "Smallest number: $(printf "%s\n" "${nums[@]}" | sort -n | head -n 1)"
     echo "Largest number: $(printf "%s\n" "${nums[@]}" | sort -rn | head -n 1)"
 
+### 15) Write a Shell program to find the smallest digit from a number.
+
+    read -p "Enter a number: " num
+    smallest=$(echo "$num" | grep -o '[0-9]' | sort -n | head -n 1)
+    echo "Smallest digit in $num is $smallest"
 
 ### 16) Write a Shell program to find the sum of all numbers between 50 and 100, which are divisible by 3 and not divisible by 5.
 
@@ -234,4 +239,3 @@
 | `ping` | Send ICMP ECHO_REQUEST packets to network hosts |
 | `traceroute` | Print the route packets take to network host |
 | `netstat` | Display network connections, routing tables, interface statistics |
-
