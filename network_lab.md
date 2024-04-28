@@ -299,8 +299,8 @@ each of these words.
      [ $# -ne 1 ] && echo "Usage: $0 <file>" && exit 1
      tr -s '[:space:]' '\n' < "$1" | tr '[:upper:]' '[:lower:]' | sort | uniq -c
 
-### 31) Write a shell script to find out the unique words in a file and also count the occurrence of
-each of these words.
+### 31) Write a shell script to get the total count of the word “Linux” in all the “.txt” files and also
+across files present in subdirectories.
 
      count=$(grep -r -o -w "Linux" *.txt | wc -l)
      echo "Total count of 'Linux' in .txt files: $count"
