@@ -175,6 +175,166 @@
     factorial=$(seq -s "*" 1 $num | bc)
     echo "Factorial of $num is $factorial"
 
+### 21) Write a Shell program to generate Fibonacci series.
+
+     a=0
+     b=1
+     echo "Enter the number of terms: "
+     read n
+     echo "Fibonacci Series:"
+     for (( i=0; i<n; i++ ))
+     do
+         echo -n "$a "
+         fn=$((a + b))
+         a=$b
+         b=$fn
+     done
+     
+### 22) Write a shell script, which receives two filenames as arguments. It checks whether the two
+files contents are same or not. If they are same then second file is deleted.
+
+     if [ "$(cat "$1")" = "$(cat "$2")" ]; then
+         rm "$2"
+         echo "Files have same contents. Second file deleted."
+     else
+         echo "Files have different contents."
+     fi
+     
+### 23) Write a shell script, which receives two filenames as arguments. It checks whether the two
+files contents are same or not. If they are same then second file is deleted.
+
+     while true; do
+         echo "1. List current directory"
+         echo "2. Print working directory"
+         echo "3. Display date"
+         echo "4. Display users logged in"
+         echo "5. Exit"
+         read -p "Enter your choice: " choice
+     
+         case $choice in
+             1) ls ;;
+             2) pwd ;;
+             3) date ;;
+             4) who ;;
+             5) echo "Exiting..."; exit ;;
+             *) echo "Invalid option. Please choose again." ;;
+         esac
+     done
+
+### 24) Shell script to check executable rights for all files in the current directory, if a file does not
+have the execute permission then make it executable.
+
+     for file in *; do
+         if [ ! -x "$file" ]; then
+             chmod +x "$file"
+             echo "Adding execute permission to $file"
+         else
+             echo "$file already has execute permissions."
+         fi
+     done
+     
+### 25) Write a Shell program to generate all combinations of 1, 2, and 3 using loop.
+
+     for i in 1 2 3; do
+       for j in 1 2 3; do
+         for k in 1 2 3; do
+           echo "$i$j$k"
+         done
+       done
+     done
+
+or
+
+     for i in {1..3}{1..3}{1..3}; do
+       echo $i
+     done
+
+### 26) Write a Shell program to create the number series.
+
+     read -p "Enter the number of rows: " rows
+     num=1
+     for ((i=1; i<=rows; i++)); do
+         for ((j=1; j<=i; j++)); do
+             echo -n "$num "
+             ((num++))
+         done
+         echo
+     done
+
+or
+
+     read -p "Enter the number of rows: " rows
+     num=1
+     for ((i=1; i<=rows; i++)); do
+         echo $(seq -s " " $num $((num+i-1)))
+         ((num+=i))
+     done
+
+### 27) Write a Shell program to create Pascal’s triangle.
+
+     read -p "Enter the number of rows for Pascal's Triangle: " rows
+     for ((i = 0; i < rows; i++)); do
+         printf "%*s" $((rows - i - 1)) ""
+         coef=1
+         for ((j = 0; j <= i; j++)); do
+             printf "%d " $coef
+             coef=$((coef * (i - j) / (j + 1)))
+         done
+         echo
+     done
+
+### 28) Write a Decimal to Binary Conversion Shell Script.
+
+     read -p "Enter a decimal number: " decimal
+     echo "Binary equivalent: $(echo "obase=2; $decimal" | bc)"
+
+### 29) Write a Shell Script to Check Whether a String is Palindrome or not.
+
+     read -p "Enter a string: " str
+     [ "$str" = "$(echo $str | rev)" ] && echo "Palindrome" || echo "Not a Palindrome"
+
+### 30) Write a shell script to find out the unique words in a file and also count the occurrence of
+each of these words.
+
+     [ $# -ne 1 ] && echo "Usage: $0 <file>" && exit 1
+     tr -s '[:space:]' '\n' < "$1" | tr '[:upper:]' '[:lower:]' | sort | uniq -c
+
+### 31) Write a shell script to find out the unique words in a file and also count the occurrence of
+each of these words.
+
+     count=$(grep -r -o -w "Linux" *.txt | wc -l)
+     echo "Total count of 'Linux' in .txt files: $count"
+
+### 32) Write a shell script to validate password strength. Here are a few assumptions for the
+password string. ( Length – minimum of 8 characters. Contain both alphabet and number.
+Include both the small and capital case letters.)
+
+     read -p "Enter your password: " password
+     if [[ ${#password} -ge 8 && "$password" =~ [0-9] && "$password" =~ [a-z] && "$password" =~ [A-Z] ]]; then
+         echo "Password strength: Strong"
+     else
+         echo "Password strength: Weak"
+     fi
+     
+### 33) Write a shell script to print the count of files and subdirectories in the specified directory.
+
+     read -p "Enter directory path: " directory
+
+     #error / exist check ( optional )
+     [ -z "$directory" ] && { echo "Usage: $0 <directory>"; exit 1; }
+     
+     file_count=$(find "$directory" -type f | wc -l)
+     dir_count=$(find "$directory" -type d | wc -l)
+     
+     echo "Files: $file_count"
+     echo "Directories: $dir_count"
+
+### 34) Write a shell script to reverse the list of strings and reverse each string further in the list.
+
+     read -p "Enter strings separated by spaces: " -a list
+     for str in "${list[@]}"; do
+         echo "$str" | rev
+     done
 
 ## Unix/Linux Commands
 ### File Commands
