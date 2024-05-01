@@ -1,2 +1,2 @@
 # MCA-S2
-Semester 2 Lab Programs.
+KTU MCA Semester S2 Programming Lab 2023-24. ( Java, Networking, ADMS)
