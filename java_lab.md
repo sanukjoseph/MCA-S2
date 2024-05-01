@@ -1,4 +1,352 @@
-## Java lab
+## MCA S2 Java lab 2023-24 - SKJ ( 49 ) ( Que - 23)
+
+### 1) Define a class ‘product’ with data members pcode, pname and price. Create 3 objects ofthe class and find the product having the lowest price.
+
+        public class Product {
+            int pcode;
+            String pname;
+            double price;
+
+            public Product(int pcode, String pname, double price) {
+                this.pcode = pcode;
+                this.pname = pname;
+                this.price = price;
+            }
+
+            public static void main(String[] args) {
+                Product product1 = new Product(1, "Product1", 10.5);
+                Product product2 = new Product(2, "Product2", 5.5);
+                Product product3 = new Product(3, "Product3", 8.0);
+
+                Product lowestPriceProduct = findLowestPriceProduct(product1, product2, product3);
+                System.out.println("Product with the lowest price: " + lowestPriceProduct.pname);
+            }
+
+            public static Product findLowestPriceProduct(Product... products) {
+                Product lowestPriceProduct = products[0];
+                for (Product product : products) {
+                    if (product.price < lowestPriceProduct.price) {
+                        lowestPriceProduct = product;
+                    }
+                }
+                return lowestPriceProduct;
+            }
+        }
+
+### 2) Read 2 matrices from the console and perform matrix addition.
+
+        import java.util.Scanner;
+
+        public class MatrixAddition {
+            
+            public static int[][] readMatrix(Scanner scanner, int rows, int cols) {
+                int[][] matrix = new int[rows][cols];
+                for (int i = 0; i < rows; i++) {
+                    for (int j = 0; j < cols; j++) {
+                        matrix[i][j] = scanner.nextInt();
+                    }
+                }
+                return matrix;
+            }
+            
+            public static void main(String[] args) {
+                Scanner scanner = new Scanner(System.in);
+                System.out.println("Enter the number of rows and columns of the matrices:");
+                int rows = scanner.nextInt();
+                int cols = scanner.nextInt();
+                System.out.println("Enter the elements of the first matrix:");
+                int[][] matrix1 = readMatrix(scanner, rows, cols);
+                System.out.println("Enter the elements of the second matrix:");
+                int[][] matrix2 = readMatrix(scanner, rows, cols);
+                System.out.println("Resultant matrix after addition:");
+                for (int i = 0; i < rows; i++) {
+                    for (int j = 0; j < cols; j++) {
+                        System.out.print(matrix1[i][j] + matrix2[i][j] + " ");
+                    }
+                    System.out.println();
+                }
+
+                scanner.close();
+            }
+        }
+### 3) Add complex numbers
+
+        import java.util.Scanner;
+
+        public class ComplexNumber {
+            private final double real;
+            private final double imaginary;
+
+            public ComplexNumber(double real, double imaginary) {
+                this.real = real;
+                this.imaginary = imaginary;
+            }
+
+            public String toString() {
+                return "(" + real + " + " + imaginary + "i)";
+            }
+
+            public static void main(String[] args) {
+                Scanner scanner = new Scanner(System.in);
+
+                System.out.println("Enter the real part of the first complex number:");
+                double real1 = scanner.nextDouble();
+                System.out.println("Enter the imaginary part of the first complex number:");
+                double imaginary1 = scanner.nextDouble();
+
+                System.out.println("Enter the real part of the second complex number:");
+                double real2 = scanner.nextDouble();
+                System.out.println("Enter the imaginary part of the second complex number:");
+                double imaginary2 = scanner.nextDouble();
+
+                ComplexNumber num1 = new ComplexNumber(real1, imaginary1);
+                ComplexNumber num2 = new ComplexNumber(real2, imaginary2);
+
+                ComplexNumber sum = new ComplexNumber(num1.real + num2.real, num1.imaginary + num2.imaginary);
+                System.out.println("Sum: " + sum.toString());
+
+                scanner.close();
+            }
+        }
+
+### 4) Read a matrix from the console and check whether it is symmetric or not.
+
+        import java.util.Scanner;
+
+        public class MatrixSymmetryCheck {
+            public static void main(String[] args) {
+                Scanner scanner = new Scanner(System.in);
+
+                System.out.print("Enter the number of rows: ");
+                int rows = scanner.nextInt();
+                System.out.print("Enter the number of columns: ");
+                int cols = scanner.nextInt();
+
+                int[][] matrix = new int[rows][cols];
+                System.out.println("Enter the elements of the matrix:");
+                for (int i = 0; i < rows; i++) {
+                    for (int j = 0; j < cols; j++) {
+                        matrix[i][j] = scanner.nextInt();
+                    }
+                }
+
+                boolean symmetric = true;
+                if (rows != cols) {
+                    symmetric = false;
+                } else {
+                    for (int i = 0; i < rows; i++) {
+                        for (int j = 0; j < i; j++) {
+                            if (matrix[i][j] != matrix[j][i]) {
+                                symmetric = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (symmetric) {
+                    System.out.println("The matrix is symmetric.");
+                } else {
+                    System.out.println("The matrix is not symmetric.");
+                }
+
+                scanner.close();
+            }
+        }
+
+### 5) Create CPU with attribute price. Create inner class Processor (no. of cores, manufacturer) and static nested class RAM (memory, manufacturer). Create an object of CPU and print information of Processor and RAM.
+
+        class CPU {
+            double price;
+            static class Processor {
+                int cores;
+                String manufacturer;
+                Processor(int cores, String manufacturer) {
+                    this.cores = cores;
+                    this.manufacturer = manufacturer;
+                }
+                void display() {
+                    System.out.println("Processor: Cores - " + cores + ", Manufacturer - " + manufacturer);
+                }
+            }
+            static class RAM {
+                int memory;
+                String manufacturer;
+                RAM(int memory, String manufacturer) {
+                    this.memory = memory;
+                    this.manufacturer = manufacturer;
+                }
+                void display() {
+                    System.out.println("RAM: Memory - " + memory + ", Manufacturer - " + manufacturer);
+                }
+            }
+            CPU(double price) {
+                this.price = price;
+            }
+            void display() {
+                System.out.println("CPU Price: " + price);
+            }
+        }
+
+        public class Main {
+            public static void main(String[] args) {
+                CPU cpu = new CPU(500);
+                CPU.Processor processor = new CPU.Processor(4, "Intel");
+                CPU.RAM ram = new CPU.RAM(8, "Samsung");
+                cpu.display();
+                processor.display();
+                ram.display();
+            }
+        }
+
+### 6) Program to Sort strings.
+
+        import java.util.Arrays;
+        import java.util.Scanner;
+
+        public class StringSort {
+            public static void main(String[] args) {
+                Scanner scanner = new Scanner(System.in);
+                System.out.print("Enter the size of the array: ");
+                int size = scanner.nextInt();
+                scanner.nextLine();
+                String[] strings = new String[size];
+                System.out.println("Enter the items:");
+                for (int i = 0; i < size; i++) {
+                    System.out.print("Item " + (i + 1) + ": ");
+                    strings[i] = scanner.nextLine();
+                }
+                System.out.println("Original array: " + Arrays.toString(strings));
+                Arrays.sort(strings);
+                System.out.println("Sorted array: " + Arrays.toString(strings));
+                scanner.close();
+            }
+        }
+
+### 7) Search an element in an array.
+
+        import java.util.Scanner;
+
+        public class ElementSearch {
+            public static void main(String[] args) {
+                Scanner scanner = new Scanner(System.in);
+                System.out.print("Enter the size of the array: ");
+                int size = scanner.nextInt();
+                int[] array = new int[size];
+                System.out.println("Enter the elements of the array:");
+                for (int i = 0; i < size; i++) {
+                    System.out.print("Element " + (i + 1) + ": ");
+                    array[i] = scanner.nextInt();
+                }
+                System.out.print("Enter the item to search: ");
+                int target = scanner.nextInt();
+                boolean found = false;
+                for (int num : array) {
+                    if (num == target) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found) {
+                    System.out.println("Element " + target + " found in the array.");
+                } else {
+                    System.out.println("Element " + target + " not found in the array.");
+                }
+                scanner.close();
+            }
+        }
+
+### 8) Perform string manipulations.
+
+        import java.util.Scanner;
+
+        public class StringManipulations {
+            public static void main(String[] args) {
+                Scanner scanner = new Scanner(System.in);
+
+                System.out.print("Enter a string: ");
+                String str = scanner.nextLine();
+
+                int length = str.length();
+                System.out.println("Length of the string: " + length);
+
+                String upperCase = str.toUpperCase();
+                System.out.println("Uppercase: " + upperCase);
+
+                String lowerCase = str.toLowerCase();
+                System.out.println("Lowercase: " + lowerCase);
+
+                System.out.print("Enter the substring to replace: ");
+                String substringToReplace = scanner.nextLine();
+                System.out.print("Enter the replacement string: ");
+                String replacement = scanner.nextLine();
+                String replaced = str.replace(substringToReplace, replacement);
+                System.out.println("Replaced: " + replaced);
+
+                System.out.print("Enter the starting index for substring: ");
+                int startIndex = scanner.nextInt();
+                String substring = str.substring(startIndex);
+                System.out.println("Substring: " + substring);
+
+                scanner.close();
+            }
+        }
+
+### 9) Program to create a class for Employee having attributes eNo, eName eSalary. Read n employ information and Search for an employee given eNo, using the concept of Array of Objects.
+
+        import java.util.Scanner;
+
+        class Employee {
+            int eNo;
+            String eName;
+            double eSalary;
+
+            public Employee(int eNo, String eName, double eSalary) {
+                this.eNo = eNo;
+                this.eName = eName;
+                this.eSalary = eSalary;
+            }
+        }
+
+        public class EmployeeSearch {
+            public static void main(String[] args) {
+                Scanner scanner = new Scanner(System.in);
+                System.out.print("Enter the number of employees: ");
+                int n = scanner.nextInt();
+                Employee[] employees = new Employee[n];
+
+                for (int i = 0; i < n; i++) {
+                    System.out.println("Enter details for employee " + (i + 1) + ":");
+                    System.out.print("Employee Number: ");
+                    int eNo = scanner.nextInt();
+                    scanner.nextLine(); // Consume newline
+                    System.out.print("Employee Name: ");
+                    String eName = scanner.nextLine();
+                    System.out.print("Employee Salary: ");
+                    double eSalary = scanner.nextDouble();
+                    employees[i] = new Employee(eNo, eName, eSalary);
+                }
+
+                System.out.print("Enter the employee number to search: ");
+                int searchNo = scanner.nextInt();
+                boolean found = false;
+                for (Employee emp : employees) {
+                    if (emp.eNo == searchNo) {
+                        found = true;
+                        System.out.println("Employee found:");
+                        System.out.println("Employee Number: " + emp.eNo);
+                        System.out.println("Employee Name: " + emp.eName);
+                        System.out.println("Employee Salary: " + emp.eSalary);
+                        break;
+                    }
+                }
+                if (!found) {
+                    System.out.println("Employee with eNo " + searchNo + " not found.");
+                }
+
+                scanner.close();
+            }
+        }
 
 ### 10) Area of different shapes using overloaded functions
 
