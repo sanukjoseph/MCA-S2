@@ -362,8 +362,8 @@
                 return Math.PI * radius * radius;
             }
         
-            public static double calculateArea(double base, double height) {
-                return 0.5 * base * height;
+            public static double calculateArea(double base, double height,double factor) {
+                return factor * base * height;
             }
         
             public static void main(String[] args) {
@@ -382,7 +382,7 @@
                         break;
                     case 3:
                         System.out.print("Enter base and height of triangle: ");
-                        System.out.println("Area of triangle: " + calculateArea(scanner.nextDouble(), scanner.nextDouble()));
+                        System.out.println("Area of triangle: " + calculateArea(scanner.nextDouble(), scanner.nextDouble(), 0.5));
                         break;
                     default:
                         System.out.println("Invalid choice!");
